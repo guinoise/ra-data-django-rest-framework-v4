@@ -56,7 +56,8 @@
   },
   "dependencies": {
     "@types/node": "^18.8.4",
-    "query-string": "^6.12.1"
+    "query-string": "^6.12.1",
+    "util": "^0.12.4"
   },
   "bugs": {
     "url": "https://github.com/bmihelac/ra-data-django-rest-framework/issues"

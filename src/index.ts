@@ -7,6 +7,7 @@ import {
   fetchUtils,
   DataProvider,
 } from 'ra-core';
+import { isStringObject } from 'util/types';
 
 export {
   default as tokenAuthProvider,
@@ -44,11 +45,16 @@ export default (
   apiUrl: String,
   httpClient: Function = fetchUtils.fetchJson
 ): DataProvider => {
-  const getOneJson = (resource: String, id: Identifier) =>
-    httpClient(`${apiUrl}/${resource}/${id}/`).then(
+  const getOneJson = (resource: String, id: Identifier) => {
+    if (isStringObject(id) && id.startsWith(`/${resource}/`)) {
+      return httpClient(`${apiUrl}${id}/`).then(
+        (response: Response) => response.json
+      );  
+    }
+    return httpClient(`${apiUrl}/${resource}/${id}/`).then(
       (response: Response) => response.json
     );
-
+  };
   return {
     getList: async (resource, params) => {
       const query = {

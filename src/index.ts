@@ -49,7 +49,7 @@ export default (
     if (isStringObject(id) && id.startsWith(`/${resource}/`)) {
       return httpClient(`${apiUrl}${id}/`).then(
         (response: Response) => response.json
-      );  
+      );
     }
     return httpClient(`${apiUrl}/${resource}/${id}/`).then(
       (response: Response) => response.json

@@ -55,6 +55,7 @@
     "ra-core": "^4.2.4"
   },
   "dependencies": {
+    "@types/node": "^18.8.4",
     "query-string": "^6.12.1"
   },
   "bugs": {

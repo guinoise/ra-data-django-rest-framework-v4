@@ -44,7 +44,7 @@ export default (
   apiUrl: String,
   httpClient: Function = fetchUtils.fetchJson
 ): DataProvider => {
-  const getOneJson = (resource: String, id: Identifier) => {
+  const getUrlForId = (resource: String, id: Identifier) => {
     var url: string | String = `${apiUrl}/${resource}/${id}/`;
     if (typeof id === 'string') {
       if (id.startsWith(`${apiUrl}/${resource}/`)) {
@@ -53,7 +53,12 @@ export default (
         url = `${apiUrl}${id}`;
       }
     }
-    return httpClient(url).then((response: Response) => response.json);
+    return url;
+  };
+  const getOneJson = (resource: String, id: Identifier) => {
+    return httpClient(getUrlForId(resource, id)).then(
+      (response: Response) => response.json
+    );
   };
   return {
     getList: async (resource, params) => {
@@ -102,7 +107,7 @@ export default (
     },
 
     update: async (resource, params) => {
-      const { json } = await httpClient(`${apiUrl}/${resource}/${params.id}/`, {
+      const { json } = await httpClient(getUrlForId(resource, params.id), {
         method: 'PATCH',
         body: JSON.stringify(params.data),
       });
@@ -112,7 +117,7 @@ export default (
     updateMany: (resource, params) =>
       Promise.all(
         params.ids.map(id =>
-          httpClient(`${apiUrl}/${resource}/${id}/`, {
+          httpClient(getUrlForId(resource, id), {
             method: 'PATCH',
             body: JSON.stringify(params.data),
           })
@@ -130,14 +135,14 @@ export default (
     },
 
     delete: (resource, params) =>
-      httpClient(`${apiUrl}/${resource}/${params.id}/`, {
+      httpClient(getUrlForId(resource, params.id), {
         method: 'DELETE',
       }).then(() => ({ data: params.previousData })),
 
     deleteMany: (resource, params) =>
       Promise.all(
         params.ids.map(id =>
-          httpClient(`${apiUrl}/${resource}/${id}/`, {
+          httpClient(getUrlForId(resource, id), {
             method: 'DELETE',
           })
         )

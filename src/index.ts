@@ -44,6 +44,32 @@ export default (
   apiUrl: String,
   httpClient: Function = fetchUtils.fetchJson
 ): DataProvider => {
+  const callHttpClientFileHandling = async (
+    uri: String,
+    method: String,
+    data: Partial<any>
+  ) => {
+    var needFormData = false;
+    let body;
+    for (const key in data) {
+      if (data[key] instanceof Blob) {
+        needFormData = true;
+        break;
+      }
+    }
+    if (needFormData) {
+      body = new FormData();
+      for (const key in data) {
+        body.append(key, data[key]);
+      }
+    } else {
+      body = JSON.stringify(data);
+    }
+    return await httpClient(uri, {
+      method: method,
+      body: body,
+    });
+  };
   const getUrlForId = (resource: String, id: Identifier) => {
     var url: string | String = `${apiUrl}/${resource}/${id}/`;
     if (typeof id === 'string') {
@@ -107,28 +133,31 @@ export default (
     },
 
     update: async (resource, params) => {
-      const { json } = await httpClient(getUrlForId(resource, params.id), {
-        method: 'PATCH',
-        body: JSON.stringify(params.data),
-      });
+      const { json } = await callHttpClientFileHandling(
+        getUrlForId(resource, params.id),
+        'PATCH',
+        params.data
+      );
       return { data: json };
     },
 
     updateMany: (resource, params) =>
       Promise.all(
         params.ids.map(id =>
-          httpClient(getUrlForId(resource, id), {
-            method: 'PATCH',
-            body: JSON.stringify(params.data),
-          })
+          callHttpClientFileHandling(
+            getUrlForId(resource, id),
+            'PATCH',
+            params.data
+          )
         )
       ).then(responses => ({ data: responses.map(({ json }) => json.id) })),
 
     create: async (resource, params) => {
-      const { json } = await httpClient(`${apiUrl}/${resource}/`, {
-        method: 'POST',
-        body: JSON.stringify(params.data),
-      });
+      const { json } = await callHttpClientFileHandling(
+        `${apiUrl}/${resource}/`,
+        'POST',
+        params.data
+      );
       return {
         data: { ...json },
       };

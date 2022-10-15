@@ -50,7 +50,7 @@ export default (
     data: Partial<any>
   ) => {
     var needFormData = false;
-    let body;
+    var body;
     for (const key in data) {
       if (data[key]['rawFile'] && data[key]['rawFile'] instanceof Blob) {
         needFormData = true;

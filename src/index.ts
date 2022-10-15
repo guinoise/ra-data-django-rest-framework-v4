@@ -57,7 +57,7 @@ export default (
         break;
       }
     }
-    if (needFormData) {
+    if (needFormData === true) {
       body = new FormData();
       for (const key in data) {
         body.append(key, data[key]);

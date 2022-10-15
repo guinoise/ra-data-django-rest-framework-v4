@@ -52,7 +52,7 @@ export default (
     var needFormData = false;
     let body;
     for (const key in data) {
-      if (data[key] instanceof Blob) {
+      if (data[key]['rawFile'] && data[key]['rawFile'] instanceof Blob) {
         needFormData = true;
         break;
       }

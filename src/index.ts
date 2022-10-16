@@ -49,18 +49,31 @@ export default (
     method: String,
     data: Partial<any>
   ) => {
-    let needFormData = false;
-    let body;
+    var needFormData = false;
+    var body;
     for (const key in data) {
-      if (data[key]['rawFile'] && data[key]['rawFile'] instanceof Blob) {
+      if (
+        data[key] &&
+        data[key]['rawFile'] &&
+        data[key]['rawFile'] instanceof Blob
+      ) {
         needFormData = true;
-        break;
+        // What? it's steeping out of the function...
+        //break;
       }
     }
-    if (needFormData === true) {
+    if (needFormData) {
       body = new FormData();
       for (const key in data) {
-        body.append(key, data[key]);
+        if (
+          data[key] &&
+          data[key]['rawFile'] &&
+          data[key]['rawFile'] instanceof Blob
+        ) {
+          body.append(key, data[key].rawFile);
+        } else {
+          body.append(key, data[key]);
+        }
       }
     } else {
       body = JSON.stringify(data);

@@ -35,6 +35,10 @@ const dataProvider = drfProvider("/api");
 * Filtering
 * Authentication
 
+### This fork features
+* Handle Hyperlinked (http://myapi.com/myresource/myid/) and URILinked (/myresource/myid/) entities
+* Submit the POST UPDATE and PATCH as Multipart form when a FileInput or ImageInput is used (tested only on multiple=False)
+
 ### Sorting
 
 Ordering for

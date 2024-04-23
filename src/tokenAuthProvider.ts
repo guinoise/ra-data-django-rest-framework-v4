@@ -35,7 +35,7 @@ function tokenAuthProvider(options: Options = {}): AuthProvider {
     },
     checkAuth: () =>
       localStorage.getItem('token') ? Promise.resolve() : Promise.reject(),
-    checkError: error => {
+    checkError: (error) => {
       const status = error.status;
       if (status === 401 || status === 403) {
         localStorage.removeItem('token');

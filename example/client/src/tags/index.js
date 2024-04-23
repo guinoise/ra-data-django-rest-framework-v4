@@ -4,8 +4,8 @@ import TagList from './TagList';
 import TagShow from './TagShow';
 
 export default {
-    create: TagCreate,
-    edit: TagEdit,
-    list: TagList,
-    show: TagShow,
+  create: TagCreate,
+  edit: TagEdit,
+  list: TagList,
+  show: TagShow,
 };

@@ -1,6 +1,6 @@
 import {
-    required as createRequiredValidator,
-    number as createNumberValidator,
+  required as createRequiredValidator,
+  number as createNumberValidator,
 } from 'react-admin';
 
 export const required = createRequiredValidator();

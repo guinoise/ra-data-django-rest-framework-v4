@@ -124,9 +124,9 @@ export default (
     },
 
     getMany: (resource, params) => {
-      return Promise.all(
-        params.ids.map(id => getOneJson(resource, id))
-      ).then(data => ({ data }));
+      return Promise.all(params.ids.map((id) => getOneJson(resource, id))).then(
+        (data) => ({ data })
+      );
     },
 
     getManyReference: async (resource, params) => {
@@ -156,14 +156,14 @@ export default (
 
     updateMany: (resource, params) =>
       Promise.all(
-        params.ids.map(id =>
+        params.ids.map((id) =>
           callHttpClientFileHandling(
             getUrlForId(resource, id),
             'PATCH',
             params.data
           )
         )
-      ).then(responses => ({ data: responses.map(({ json }) => json.id) })),
+      ).then((responses) => ({ data: responses.map(({ json }) => json.id) })),
 
     create: async (resource, params) => {
       const { json } = await callHttpClientFileHandling(
@@ -183,7 +183,7 @@ export default (
 
     deleteMany: (resource, params) =>
       Promise.all(
-        params.ids.map(id =>
+        params.ids.map((id) =>
           httpClient(getUrlForId(resource, id), {
             method: 'DELETE',
           })

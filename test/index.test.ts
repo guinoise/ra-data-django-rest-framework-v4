@@ -34,8 +34,8 @@ const mockDataProvider = (json = {}) => {
   };
 };
 
-describe('getOrderingQuery', function() {
-  it('should work', function() {
+describe('getOrderingQuery', function () {
+  it('should work', function () {
     expect(getOrderingQuery({ ...DEFAULT_ORDERING, order: 'DESC' })).toEqual({
       ordering: '-id',
     });
@@ -49,7 +49,7 @@ describe('dataProvider', () => {
     email: '',
   };
 
-  describe('getList', function() {
+  describe('getList', function () {
     it('should create proper URL', () => {
       const { dataProvider, httpClient } = mockDataProvider();
       dataProvider.getList('posts', {
@@ -77,7 +77,7 @@ describe('dataProvider', () => {
     });
   });
 
-  describe('getOne', function() {
+  describe('getOne', function () {
     it('should return data', async () => {
       const { dataProvider } = mockDataProvider(item);
       expect(await dataProvider.getOne('posts', { id: item.id })).toEqual({
@@ -86,7 +86,7 @@ describe('dataProvider', () => {
     });
   });
 
-  describe('getMany', function() {
+  describe('getMany', function () {
     it('should return data', async () => {
       const { dataProvider } = mockDataProvider(item);
       expect(await dataProvider.getMany('posts', { ids: [item.id] })).toEqual({
@@ -95,7 +95,7 @@ describe('dataProvider', () => {
     });
   });
 
-  describe('getManyReference', function() {
+  describe('getManyReference', function () {
     it('should create proper URL', () => {
       const { dataProvider, httpClient } = mockDataProvider();
       dataProvider.getManyReference('posts', {
@@ -111,7 +111,7 @@ describe('dataProvider', () => {
     });
   });
 
-  describe('update', function() {
+  describe('update', function () {
     it('should create proper request', () => {
       const { dataProvider, httpClient } = mockDataProvider();
       const updatedItem = {
@@ -133,7 +133,7 @@ describe('dataProvider', () => {
     });
   });
 
-  describe('updateMany', function() {
+  describe('updateMany', function () {
     it('should return data', async () => {
       const { dataProvider } = mockDataProvider(item);
       expect(
@@ -147,7 +147,7 @@ describe('dataProvider', () => {
     });
   });
 
-  describe('create', function() {
+  describe('create', function () {
     it('should return data', async () => {
       const { dataProvider } = mockDataProvider(item);
       expect(await dataProvider.create('posts', { data: item })).toEqual({
@@ -156,7 +156,7 @@ describe('dataProvider', () => {
     });
   });
 
-  describe('delete', function() {
+  describe('delete', function () {
     it('should return data', async () => {
       const { dataProvider } = mockDataProvider(item);
       expect(
@@ -165,7 +165,7 @@ describe('dataProvider', () => {
     });
   });
 
-  describe('deleteMany', function() {
+  describe('deleteMany', function () {
     it('should return data', async () => {
       const { dataProvider } = mockDataProvider(item);
       expect(

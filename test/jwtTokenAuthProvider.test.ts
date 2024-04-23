@@ -66,7 +66,7 @@ describe('checkAuth', () => {
 
 describe('checkError', () => {
   it('should remove token and reject for 401 or 403 error', async () => {
-    [401, 403].forEach(async status => {
+    [401, 403].forEach(async (status) => {
       await expect(
         jwtTokenAuthProvider().checkError({ status })
       ).rejects.toBeUndefined();
@@ -100,7 +100,7 @@ describe('createOptionsFromJWTToken', () => {
   });
 });
 
-describe('fetchJsonWithAuthJWTToken', function() {
+describe('fetchJsonWithAuthJWTToken', function () {
   fetchMock.patch('/', 200);
   test('with options', () => {
     fetchJsonWithAuthJWTToken('/', {

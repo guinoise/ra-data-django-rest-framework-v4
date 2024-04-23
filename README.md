@@ -25,19 +25,20 @@ npm install ra-data-django-rest-framework
 
 ```javascript
 import drfProvider from 'ra-data-django-rest-framework';
-const dataProvider = drfProvider("/api");
+const dataProvider = drfProvider('/api');
 ```
 
 ## Features
 
-* Sorting
-* Pagination
-* Filtering
-* Authentication
+- Sorting
+- Pagination
+- Filtering
+- Authentication
 
 ### This fork features
-* Handle Hyperlinked (http://myapi.com/myresource/myid/) and URILinked (/myresource/myid/) entities
-* Submit the POST UPDATE and PATCH as Multipart form when a FileInput or ImageInput is used (tested only on multiple=False)
+
+- Handle Hyperlinked (http://myapi.com/myresource/myid/) and URILinked (/myresource/myid/) entities
+- Submit the POST UPDATE and PATCH as Multipart form when a FileInput or ImageInput is used (tested only on multiple=False)
 
 ### Sorting
 
@@ -52,7 +53,7 @@ Currently pagination with
 is supported.
 
 Default `PageNumberPagination` has `page_size_query_param` set to `None`,
-overide to be able to set *Rows per page*, ie:
+overide to be able to set _Rows per page_, ie:
 
 ```python
 from rest_framework.pagination import PageNumberPagination
@@ -66,8 +67,8 @@ class PageNumberWithPageSizePagination(PageNumberPagination):
 
 ra-data-django-rest-framework supports:
 
-* [Generic Filtering](https://www.django-rest-framework.org/api-guide/filtering/#generic-filtering)
-* [DjangoFilterBackend](https://www.django-rest-framework.org/api-guide/filtering/#djangofilterbackend)
+- [Generic Filtering](https://www.django-rest-framework.org/api-guide/filtering/#generic-filtering)
+- [DjangoFilterBackend](https://www.django-rest-framework.org/api-guide/filtering/#djangofilterbackend)
 
 ### Authentication
 
@@ -80,7 +81,7 @@ to obtain token from django-rest-framework. User token is saved in `localStorage
 `tokenAuthProvider` accepts options as second argument with
 `obtainAuthTokenUrl` key. Default URL for obtaining a token is `/api-token-auth/`.
 
-`fetchJsonWithAuthToken` overrides *httpClient* and adds authorization header
+`fetchJsonWithAuthToken` overrides _httpClient_ and adds authorization header
 with previously saved user token to every request.
 
 ```javascrtipt
@@ -99,7 +100,7 @@ to obtain token from django-rest-framework. User token is saved in `localStorage
 `jwtTokenAuthProvider` accepts options as second argument with
 `obtainAuthJWTTokenUrl` key. Default URL for obtaining a token is `/api/token/`.
 
-`fetchJsonWithAuthJWTToken` overrides *httpClient* and adds authorization header
+`fetchJsonWithAuthJWTToken` overrides _httpClient_ and adds authorization header
 with previously saved user token to every request.
 
 ```javascrtipt
@@ -148,9 +149,9 @@ You can now view example app in the browser: http://localhost:3000
 Login with user `admin`, password is `password` or create new users in Django
 admin dashboard or shell.
 
-By default the ``rest_framework.authentication.TokenAuthentication`` will be 
-used. To use ``rest_framework_simplejwt.authentication.JWTAuthentication``, set
-the value of the ``REACT_APP_USE_JWT_AUTH`` variable in the .env 
+By default the `rest_framework.authentication.TokenAuthentication` will be
+used. To use `rest_framework_simplejwt.authentication.JWTAuthentication`, set
+the value of the `REACT_APP_USE_JWT_AUTH` variable in the .env
 file (example/client/.env) to true, as shown below:
 
 ```text
@@ -172,4 +173,4 @@ yarn test
 
 ## TODO
 
-* examples for image upload
+- examples for image upload

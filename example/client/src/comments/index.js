@@ -5,9 +5,9 @@ import CommentList from './CommentList';
 import { ShowGuesser } from 'react-admin';
 
 export default {
-    list: CommentList,
-    create: CommentCreate,
-    edit: CommentEdit,
-    show: ShowGuesser,
-    icon: ChatBubbleIcon,
+  list: CommentList,
+  create: CommentCreate,
+  edit: CommentEdit,
+  show: ShowGuesser,
+  icon: ChatBubbleIcon,
 };

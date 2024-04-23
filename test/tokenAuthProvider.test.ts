@@ -64,7 +64,7 @@ describe('checkAuth', () => {
 
 describe('checkError', () => {
   it('should remove token and reject for 401 or 403 error', async () => {
-    [401, 403].forEach(async status => {
+    [401, 403].forEach(async (status) => {
       await expect(
         tokenAuthProvider().checkError({ status })
       ).rejects.toBeUndefined();
@@ -98,7 +98,7 @@ describe('createOptionsFromToken', () => {
   });
 });
 
-describe('fetchJsonWithAuthToken', function() {
+describe('fetchJsonWithAuthToken', function () {
   fetchMock.patch('/', 200);
   test('with options', () => {
     fetchJsonWithAuthToken('/', {

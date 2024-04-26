@@ -70,9 +70,12 @@ export default (
           data[key]['rawFile'] &&
           data[key]['rawFile'] instanceof Blob
         ) {
-          body.append(key, data[key].rawFile);
-        } else {
-          body.append(key, data[key]);
+          if (data[key].rawFile.name) {
+            body.append(key, data[key].rawFile, data[key].rawFile.name);
+          } else {
+            // Otherwise, append the Blob without the name
+            body.append(key, data[key].rawFile);
+          }
         }
       }
     } else {

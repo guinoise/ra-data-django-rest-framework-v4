@@ -55,11 +55,9 @@ export default (
       if (
         data[key] &&
         data[key]['rawFile'] &&
-        data[key]['rawFile'] instanceof Blob
+        (data[key]['rawFile'] instanceof Blob || data[key]['rawFile'] instanceof File)
       ) {
         needFormData = true;
-        // What? it's steeping out of the function...
-        //break;
       }
     }
     if (needFormData) {
@@ -70,17 +68,18 @@ export default (
           data[key]['rawFile'] &&
           data[key]['rawFile'] instanceof Blob
         ) {
-          if (data[key].rawFile.name) {
-            body.append(key, data[key].rawFile, data[key].rawFile.name);
-          } else {
-            // Otherwise, append the Blob without the name
-            body.append(key, data[key].rawFile);
-          }
+          // Append the Blob or File directly without manipulating the name
+          body.append(key, data[key].rawFile);
+        } else {
+          // Append other properties as strings
+          body.append(key, data[key]);
         }
       }
+
     } else {
       body = JSON.stringify(data);
     }
+    
     return await httpClient(uri, {
       method: method,
       body: body,
@@ -169,6 +168,7 @@ export default (
       ).then((responses) => ({ data: responses.map(({ json }) => json.id) })),
 
     create: async (resource, params) => {
+
       const { json } = await callHttpClientFileHandling(
         `${apiUrl}/${resource}/`,
         'POST',

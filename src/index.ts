@@ -55,7 +55,8 @@ export default (
       if (
         data[key] &&
         data[key]['rawFile'] &&
-        (data[key]['rawFile'] instanceof Blob || data[key]['rawFile'] instanceof File)
+        (data[key]['rawFile'] instanceof Blob ||
+          data[key]['rawFile'] instanceof File)
       ) {
         needFormData = true;
       }
@@ -75,11 +76,10 @@ export default (
           body.append(key, data[key]);
         }
       }
-
     } else {
       body = JSON.stringify(data);
     }
-    
+
     return await httpClient(uri, {
       method: method,
       body: body,
@@ -168,7 +168,6 @@ export default (
       ).then((responses) => ({ data: responses.map(({ json }) => json.id) })),
 
     create: async (resource, params) => {
-
       const { json } = await callHttpClientFileHandling(
         `${apiUrl}/${resource}/`,
         'POST',

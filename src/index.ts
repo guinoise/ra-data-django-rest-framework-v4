@@ -18,6 +18,12 @@ export {
   fetchJsonWithAuthJWTToken,
 } from './jwtTokenAuthProvider';
 
+interface Params {
+  id: number;
+  data: { [key: string]: any };
+  previousData: { [key: string]: any };
+}
+
 const getPaginationQuery = (pagination: PaginationPayload) => {
   return {
     page: pagination.page,
@@ -147,25 +153,38 @@ export default (
       };
     },
 
-    update: async (resource, params) => {
+    
+    update: async (resource: string, params: Params) => {
+      // Create a new object that only includes the fields that have changed
+      const updatedData = Object.keys(params.data).reduce((result: { [key: string]: any }, key: string) => {
+        if (params.data[key] !== params.previousData[key]) {
+          result[key] = params.data[key];
+        }
+        return result;
+      }, {});
+    
+      // Include the id in the updatedData
+      updatedData.id = params.id;
+    
       const { json } = await callHttpClientFileHandling(
         getUrlForId(resource, params.id),
         'PATCH',
-        params.data
+        updatedData
       );
+    
       return { data: json };
     },
 
     updateMany: (resource, params) =>
       Promise.all(
-        params.ids.map((id) =>
+        params.ids.map(id =>
           callHttpClientFileHandling(
             getUrlForId(resource, id),
             'PATCH',
             params.data
           )
         )
-      ).then((responses) => ({ data: responses.map(({ json }) => json.id) })),
+      ).then(responses => ({ data: responses.map(({ json }) => json.id) })),
 
     create: async (resource, params) => {
       const { json } = await callHttpClientFileHandling(
